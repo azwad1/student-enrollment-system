@@ -100,6 +100,7 @@ th, td {
 /* Delete Button */
 td button {
   background-color: red;
+  margin: 4px;
 }
 
 td button:hover {
@@ -117,7 +118,6 @@ p {
   margin-top: 80px;
 }
 
-/* Subtitle */
 .subtitle {
   margin-top: 10px;
   color: #555;

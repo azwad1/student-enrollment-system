@@ -1,46 +1,51 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 
 function ViewStudent() {
   const [students, setStudents] = useState([]);
   const [search, setSearch] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/students");
-        const data = await res.json();
-        setStudents(data);
-      } catch (err) {
-        toast.error("Failed to load data!!");
-        console.error(err);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    if (!confirmDelete) return;
-
+  const loadStudents = async () => {
     try {
-      await fetch(`http://localhost:3000/students/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch("http://localhost:3000/students");
 
-      setStudents((prev) => prev.filter((s) => s.id !== id));
+      if (!res.ok) throw new Error("Failed to fetch");
 
-      toast.success("Student deleted successfully!!");
+      const data = await res.json();
+      setStudents(data);
     } catch (err) {
-      toast.error("Delete failed!!");
       console.error(err);
+      toast.error("Failed to load data!!");
     }
   };
 
+  loadStudents();
+}, []);
+
+  const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete?")) return;
+
+  try {
+    await fetch(`http://localhost:3000/students/${id}`, {
+      method: "DELETE",
+    });
+
+    toast.success("Student deleted successfully!!");
+
+    setStudents((prev) => prev.filter((s) => s.id !== id));
+
+  } catch (err) {
+    toast.error("Delete failed!!", err);
+  }
+};
+
   const filteredStudents = students.filter((s) =>
-    s.name.toLowerCase().includes(search.toLowerCase())
+    s.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -49,8 +54,10 @@ function ViewStudent() {
 
       <SearchBar search={search} setSearch={setSearch} />
 
-      {filteredStudents.length === 0 ? (
-        <p>No students found</p>
+      {students.length === 0 ? (
+        <p>No students available</p>
+      ) : filteredStudents.length === 0 ? (
+        <p>No matching results</p>
       ) : (
         <table>
           <thead>
@@ -71,6 +78,10 @@ function ViewStudent() {
                 <td>
                   <button onClick={() => handleDelete(s.id)}>
                     Delete
+                  </button>
+
+                  <button onClick={() => navigate(`/edit/${s.id}`)}>
+                    Edit
                   </button>
                 </td>
               </tr>
