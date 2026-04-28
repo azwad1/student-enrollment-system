@@ -1,0 +1,12 @@
+{
+  "students": [
+    {
+      "name": "Azwad",
+      "email": "azwad123@gmail.com",
+      "department": "CSE",
+      "course": "JFS",
+      "id": "l04Zfpx-SNk"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
