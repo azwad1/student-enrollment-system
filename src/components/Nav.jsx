@@ -1,19 +1,14 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
-const Nav = () => {
+function Nav() {
   return (
-    <div className="nav">
-        <div className="left">
-          <h2>Logo</h2>
-        </div>
-        <div className="right">
-            <Link to={"/"}><h2>Home</h2></Link>
-            <Link to={"/addstudent"}><h2>Add</h2></Link>
-            <Link to={"/viewstudent"}><h2>View</h2></Link>
-        </div>
-    </div>
-  )
+    <nav>
+      <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}></NavLink>
+      <NavLink to="/">Home</NavLink> |{" "}
+      <NavLink to="/addstudent">Add Student</NavLink> |{" "}
+      <NavLink to="/viewstudent">View Students</NavLink>
+    </nav>
+  );
 }
 
-export default Nav
+export default Nav;
