@@ -10,42 +10,41 @@ function ViewStudent() {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const loadStudents = async () => {
+    const loadStudents = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/students");
+
+        if (!res.ok) throw new Error("Failed to fetch");
+
+        const data = await res.json();
+        setStudents(data);
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to load data!!");
+      }
+    };
+
+    loadStudents();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete?")) return;
+
     try {
-      const res = await fetch("http://localhost:3000/students");
+      await fetch(`http://localhost:3000/students/${id}`, {
+        method: "DELETE",
+      });
 
-      if (!res.ok) throw new Error("Failed to fetch");
+      toast.success("Student deleted successfully!!");
 
-      const data = await res.json();
-      setStudents(data);
+      setStudents((prev) => prev.filter((s) => s.id !== id));
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to load data!!");
+      toast.error("Delete failed!!", err);
     }
   };
 
-  loadStudents();
-}, []);
-
-  const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure you want to delete?")) return;
-
-  try {
-    await fetch(`http://localhost:3000/students/${id}`, {
-      method: "DELETE",
-    });
-
-    toast.success("Student deleted successfully!!");
-
-    setStudents((prev) => prev.filter((s) => s.id !== id));
-
-  } catch (err) {
-    toast.error("Delete failed!!", err);
-  }
-};
-
   const filteredStudents = students.filter((s) =>
-    s.name?.toLowerCase().includes(search.toLowerCase())
+    s.name?.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -76,9 +75,7 @@ function ViewStudent() {
                 <td>{s.email}</td>
                 <td>{s.department}</td>
                 <td>
-                  <button onClick={() => handleDelete(s.id)}>
-                    Delete
-                  </button>
+                  <button onClick={() => handleDelete(s.id)}>Delete</button>
 
                   <button onClick={() => navigate(`/edit/${s.id}`)}>
                     Edit

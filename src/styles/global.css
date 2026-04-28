@@ -1,17 +1,14 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body */
 body {
   font-family: Arial, sans-serif;
   background-color: #f2f2f2;
 }
 
-/* Navbar */
 nav {
   background-color: #333;
   padding: 12px;
@@ -29,13 +26,12 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Headings */
-h1, h2 {
+h1,
+h2 {
   text-align: center;
   margin: 20px 0;
 }
 
-/* Form Container */
 .form-container {
   width: 350px;
   margin: 40px auto;
@@ -46,7 +42,6 @@ h1, h2 {
   text-align: center;
 }
 
-/* Inputs */
 input {
   width: 90%;
   padding: 8px;
@@ -55,7 +50,6 @@ input {
   border-radius: 4px;
 }
 
-/* Button */
 button {
   padding: 8px 15px;
   background-color: #007bff;
@@ -69,7 +63,6 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* Table Container */
 .view-container {
   width: 70%;
   margin: 40px auto;
@@ -79,7 +72,6 @@ button:hover {
   border-radius: 6px;
 }
 
-/* Table */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -91,13 +83,13 @@ th {
   color: white;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: center;
 }
 
-/* Delete Button */
 td button {
   background-color: red;
   margin: 4px;
@@ -107,12 +99,10 @@ td button:hover {
   background-color: darkred;
 }
 
-/* Empty message */
 p {
   text-align: center;
   margin-top: 15px;
 }
-/* Home Page */
 .home {
   text-align: center;
   margin-top: 80px;
@@ -132,9 +122,9 @@ p {
   margin: 10px;
   padding: 10px 20px;
 }
-.home h1{
-    font-size: 28px;
-    color: #333;
+.home h1 {
+  font-size: 28px;
+  color: #333;
 }
 
 .secondary-btn {
